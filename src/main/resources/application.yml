@@ -15,7 +15,7 @@ spring:
 
 security:
   jwt:
-    public-key: ${JWT_PUBLIC_KEY:change-me-to-real-public-key}
+    public-key: ${JWT_PUBLIC_KEY:VGhpc0lzQVNlY3VyZVNlY3JldEtleUZvckp3dFNpZ25pbmcxMjM=}
     issuer: ${JWT_ISSUER:}
     audience: ${JWT_AUDIENCE:}
 

@@ -3,7 +3,9 @@ package com.example.securechat.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,9 +22,25 @@ public class JwtTokenProvider {
             @Value("${security.jwt.public-key}") String publicKey,
             @Value("${security.jwt.issuer:}") String expectedIssuer,
             @Value("${security.jwt.audience:}") String expectedAudience) {
-        this.verificationKey = Keys.hmacShaKeyFor(publicKey.getBytes());
+        this.verificationKey = createVerificationKey(publicKey);
         this.expectedIssuer = expectedIssuer;
         this.expectedAudience = expectedAudience;
+    }
+
+    private Key createVerificationKey(String publicKey) {
+        byte[] keyBytes;
+        try {
+            keyBytes = Decoders.BASE64.decode(publicKey);
+        } catch (IllegalArgumentException e) {
+            keyBytes = publicKey.getBytes(StandardCharsets.UTF_8);
+        }
+
+        if (keyBytes.length < 32) {
+            throw new IllegalArgumentException(
+                    "security.jwt.public-key must be at least 256 bits (32 bytes) after decoding");
+        }
+
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public Optional<String> validateAndGetUserId(String token) {
