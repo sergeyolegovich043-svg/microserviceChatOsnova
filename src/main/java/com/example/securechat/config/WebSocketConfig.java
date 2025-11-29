@@ -1,6 +1,7 @@
 package com.example.securechat.config;
 
 import com.example.securechat.security.JwtTokenProvider;
+import java.security.Principal;
 import java.util.Optional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -46,7 +47,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     if (token != null && token.startsWith("Bearer ")) {
                         token = token.substring(7);
                         Optional<String> userId = jwtTokenProvider.validateAndGetUserId(token);
-                        userId.ifPresent(accessor::setUser);
+                        userId.ifPresent(id -> accessor.setUser((Principal) () -> id));
                     }
                 }
                 return message;
