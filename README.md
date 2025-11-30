@@ -4,6 +4,7 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
 
 ## Возможности
 - **Управление ключами устройств** — прием и хранение публичных ключей устройства (identity, signed pre-key, one-time pre-keys) через `KeyManagementService`.
+- **Обработка сессий E2E** — `SessionService` регистрирует клиентские сессии, кеширует привязанные ключевые пакеты в Redis и отдает наборы публичных ключей участников чата для сквозного шифрования.
 - **Создание приватных чатов** — `ChatService` находит существующие приватные диалоги или создает новый чат и участников.
 - **Отправка зашифрованных сообщений** — `MessageService` валидирует членство в чате, сохраняет ciphertext и уведомляет адресатов через WebSocket.
 - **JWT-аутентификация** — валидация JWT по публичному ключу и параметрам issuer/audience.
@@ -14,7 +15,7 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
 - **Spring Data JPA** — репозитории `ChatRepository`, `ChatMemberRepository`, `MessageRepository`, `UserPublicKeyBundleRepository`.
 - **WebSocket** — сервис уведомлений `WebSocketNotificationService` отправляет события о новых сообщениях.
 - **Безопасность** — Spring Security + JWT (публичный ключ задается в конфигурации).
-- **Тестирование** — модульные тесты на сервисы (`ChatServiceImplTest`, `KeyManagementServiceImplTest`, `MessageServiceImplTest`).
+- **Тестирование** — модульные тесты на сервисы (`ChatServiceImplTest`, `KeyManagementServiceImplTest`, `MessageServiceImplTest`) и интеграционные тесты с PostgreSQL/Redis (`SessionServiceIntegrationTest`).
 
 ## Основные доменные модели
 - `Chat`, `ChatMember`, `ChatType`, `MemberRole` — представляют чаты и участников.
@@ -57,5 +58,3 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
 
 ## Дальнейшее развитие
 - Добавить контроллеры REST/WebSocket и спецификацию API.
-- Реализовать обработку сессий и сквозное шифрование на базе хранилищ ключей.
-- Покрыть интеграционными тестами взаимодействие с PostgreSQL и Redis.
