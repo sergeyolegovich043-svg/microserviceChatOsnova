@@ -1,9 +1,11 @@
 spring:
   datasource:
+    driver-class-name: org.postgresql.Driver
     url: ${DB_URL:jdbc:postgresql://localhost:5432/securechat}
     username: ${DB_USERNAME:securechat}
     password: ${DB_PASSWORD:securechat}
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     properties:
