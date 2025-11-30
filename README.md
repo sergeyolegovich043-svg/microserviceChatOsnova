@@ -56,5 +56,8 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
 - `src/main/resources/` — конфигурация (`application.yml`).
 - `src/test/java/com/example/securechat/` — модульные тесты сервисов.
 
+## Подробная документация
+Расширенное описание архитектуры, моделей данных, REST/WebSocket API и рабочих потоков см. в [docs/DETAILED_DOCUMENTATION.md](docs/DETAILED_DOCUMENTATION.md).
+
 ## Дальнейшее развитие
 - Добавить контроллеры REST/WebSocket и спецификацию API.
