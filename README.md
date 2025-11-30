@@ -30,7 +30,7 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
 - `JWT_ISSUER`, `JWT_AUDIENCE` — необязательные ограничения токена.
 
 ## Быстрый старт
-1. Установите JDK 17, Maven, запустите PostgreSQL и Redis.
+1. Установите JDK 17, запустите PostgreSQL и Redis.
 2. Экспортируйте переменные окружения при необходимости:
    ```bash
    export DB_URL=jdbc:postgresql://localhost:5432/securechat
@@ -40,13 +40,14 @@ SecureChat — это микросервис на Spring Boot 3.2 для end-to-
    export REDIS_PORT=6379
    export JWT_PUBLIC_KEY="-----BEGIN PUBLIC KEY-----..."
    ```
-3. Соберите и запустите приложение:
+3. Соберите и запустите приложение через Gradle Wrapper:
    ```bash
-   mvn spring-boot:run
+   ./gradlew bootRun
    ```
+   Скрипт автоматически загрузит `gradle-wrapper.jar`, если он отсутствует.
 4. Прогоните модульные тесты:
    ```bash
-   mvn test
+   ./gradlew test
    ```
 
 ## Структура проекта
